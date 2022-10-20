@@ -1,0 +1,57 @@
+<?PHP
+namespace App\Controller;
+
+use App\Model\Filmes_Model;
+class Filmes_Controller extends Controller
+
+{
+    
+    public static function index() 
+    {
+        include 'Model/FilmesModel.php';
+        
+        $model = new FilmesModel(); 
+        $model->getAllRows();
+                   
+        parent::render("Personagens/ListaPersonagens", $model);
+    } 
+   
+    public static function form()
+    {
+        
+        $model = new FilmesModel();
+        
+        if(isset($_GET['id'])) 
+            $model = $model->getById( (int) $_GET['id']);
+            parent::render("Personagens/ListaPersonagens", $model);
+        ';
+    }
+
+    
+    public static function save() {
+
+        include 'Model/Filmes_Model.php'; 
+
+        $Filmes = new FilmesModel();
+        $Filmes->id = $_POST['id'];
+        $Filmes->nome = $_POST['nome'];
+        $Filmes->descricao = $_POST['descricao'];
+
+        $Filmes->save();  
+        header("Location: /Filmes"); 
+
+  
+    }
+
+    public static function delete()
+    {
+        include 'Model/Filmes_Model.php'; 
+
+        $model = new Filmes_Model();
+
+        $model->delete( (int) $_GET['id'] ); 
+
+        header("Location: /Filmes"); 
+    }
+
+}

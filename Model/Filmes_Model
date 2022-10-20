@@ -1,0 +1,47 @@
+<?PHP
+namespace Model\Model;
+
+use Model\DAO\PersonagensDAO;
+
+class PersonagensModel extends Model
+{
+    
+    public $id, $descricao, $nome ;
+
+    public $rows;
+
+   
+    public function save()
+    {
+      
+
+        $dao = new PersonagensDAO();
+
+        
+        if(empty($this->id))
+        {
+            
+            $dao->insert($this);
+
+        } else {
+
+            $dao->update($this); 
+        }
+
+    }
+
+    public function getAllRows()
+    {
+       
+        
+       
+        $dao = new PersonagensDAO();
+
+        
+        $this->rows = $dao->select();
+    }
+
+
+    
+    
+}
